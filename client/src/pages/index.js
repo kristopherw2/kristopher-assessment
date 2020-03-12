@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Row, Col, Icon } from 'antd';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
 import ScrollArea from 'react-scrollbar';
 import axios from 'axios';
 import NoteList from '../components/note_list';
@@ -11,7 +11,7 @@ import '../components/note_editor.css';
 
 const { Content } = Layout;
 
-export default class Index extends Component {
+class Index extends Component {
   constructor() {
     super();
     this.state = {
@@ -96,6 +96,10 @@ export default class Index extends Component {
     return notesType === 'all';
   }
 
+  toggleRecycleBin = () => {
+    this.props.history.push('/notes/recyclebin')
+  }
+
   render() {
     const { notes, loading } = this.state;
     const { history, match } = this.props;
@@ -128,6 +132,7 @@ export default class Index extends Component {
                     marginLeft: '1em',
                     color: this.isNotesTypeAll() ? '#aaa' : '#333',
                   }}
+                  onClick={() => this.toggleRecycleBin()}
                 >
                   Recycle Bin
                 </h2>
@@ -162,3 +167,5 @@ export default class Index extends Component {
     );
   }
 }
+
+export default withRouter(Index)
