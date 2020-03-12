@@ -1,0 +1,13 @@
+version: '3'
+services:
+  database:
+    image: 'mongo'
+    environment:
+      - MONGO_INITDB_DATABASE=noter
+    ports:
+      - '27016:27017'
+    volumes:
+      - dbdata:/data/db
+
+volumes:
+  dbdata:
